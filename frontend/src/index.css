@@ -1,0 +1,152 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    @apply transition-colors duration-300; /* Smooth theme transitions */
+  }
+  
+  body {
+    @apply font-sans antialiased text-gray-900 dark:text-gray-100 bg-white dark:bg-dark-100;
+    @apply min-h-screen; /* Ensure full viewport height */
+  }
+  
+  /* Improved selection colors */
+  ::selection {
+    @apply bg-primary-500/20 dark:bg-primary-500/30 text-gray-900 dark:text-white;
+  }
+  
+  /* Scrollbar styling for dark mode */
+  .dark ::-webkit-scrollbar {
+    @apply w-2;
+  }
+  
+  .dark ::-webkit-scrollbar-track {
+    @apply bg-dark-200;
+  }
+  
+  .dark ::-webkit-scrollbar-thumb {
+    @apply bg-dark-400 rounded-full;
+  }
+  
+  /* Better focus states */
+  [tabindex]:focus-visible,
+  button:focus-visible,
+  a:focus-visible {
+    @apply outline-none ring-2 ring-primary-500 dark:ring-primary-400 ring-offset-2 ring-offset-white dark:ring-offset-dark-100;
+  }
+}
+
+@layer components {
+  .container-custom {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .section-padding {
+    @apply py-16 sm:py-20 md:py-24;
+  }
+  
+  /* Enhanced heading gradient */
+  .heading-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary-600 to-secondary-600 dark:from-primary-400 dark:to-secondary-400;
+    @apply transition-all duration-500; /* Smooth gradient transitions */
+  }
+  
+  /* Improved card component */
+  .card {
+    @apply bg-white dark:bg-dark-200 rounded-xl shadow-lg dark:shadow-dark-300/30 overflow-hidden;
+    @apply border border-gray-100 dark:border-dark-300 transition-all duration-300;
+    @apply hover:shadow-xl dark:hover:shadow-dark-300/40; /* Interactive shadow */
+  }
+  
+  /* Enhanced form inputs */
+  .form-input {
+    @apply w-full px-4 py-3 rounded-lg bg-gray-50 dark:bg-dark-300;
+    @apply border border-gray-200 dark:border-dark-400 focus:outline-none;
+    @apply focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-400;
+    @apply transition-all duration-200 placeholder-gray-400 dark:placeholder-gray-500;
+  }
+  
+  /* AI dot pattern with dark mode support */
+  .ai-dot-pattern {
+    background-image: radial-gradient(
+      circle,
+      rgba(99, 102, 241, 0.15) 1px,
+      transparent 1px
+    );
+    background-size: 20px 20px;
+    
+    &.dark {
+      background-image: radial-gradient(
+        circle,
+        rgba(165, 180, 252, 0.15) 1px, /* Using primary-300 in dark mode */
+        transparent 1px
+      );
+    }
+  }
+  
+  /* New: Theme-aware buttons */
+  .btn-primary {
+    @apply px-6 py-3 rounded-lg font-medium transition-all duration-200;
+    @apply bg-primary-600 hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-400;
+    @apply text-white shadow-md hover:shadow-lg;
+    @apply focus:ring-2 focus:ring-primary-500 focus:ring-offset-2;
+  }
+}
+
+/* Enhanced Animations */
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+/* Improved reveal animations */
+.reveal {
+  position: relative;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.8s cubic-bezier(0.215, 0.61, 0.355, 1);
+  
+  &.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* New: Pulse animation for attention elements */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+.animate-pulse-slow {
+  animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* New: Gradient border for special cards */
+.gradient-border {
+  position: relative;
+  
+  &::before {
+    content: '';
+    @apply absolute inset-0 rounded-xl p-px;
+    @apply bg-gradient-to-r from-primary-500 to-secondary-500;
+    @apply -z-10;
+  }
+}
