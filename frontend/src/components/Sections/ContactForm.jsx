@@ -17,16 +17,27 @@ function ContactForm() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Implement form submission logic
-    console.log('Form Submitted', formData);
-    // Reset form after submission
-    setFormData({
-      name: '',
-      email: '',
-      message: ''
-    });
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        alert("Message sent successfully!");
+        setFormData({ name: "", email: "", message: "" });
+      } else {
+        alert("Failed to send message");
+      }
+    } catch (error) {
+      alert("Server error. Please try again later.");
+    }
   };
 
   return (
