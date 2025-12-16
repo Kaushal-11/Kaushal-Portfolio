@@ -16,10 +16,12 @@ function ContactForm() {
       [name]: value
     }));
   };
-
+  
+  const [loading, setLoading] = useState(false); // Add this state
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setLoading(true); // Show loading state
+    
     try {
       const response = await fetch("/api/contact", {
         method: "POST",
@@ -28,15 +30,21 @@ function ContactForm() {
         },
         body: JSON.stringify(formData),
       });
-
-      if (response.ok) {
-        alert("Message sent successfully!");
+      
+      const data = await response.json();
+      
+      if (response.ok && data.success) {
+        alert(data.message || "Message sent successfully!");
+        // Reset form
         setFormData({ name: "", email: "", message: "" });
       } else {
-        alert("Failed to send message");
+        alert(data.message || "Failed to send message");
       }
     } catch (error) {
+      console.error("Error:", error);
       alert("Server error. Please try again later.");
+    } finally {
+      setLoading(false); // Hide loading
     }
   };
 
@@ -135,14 +143,27 @@ function ContactForm() {
 
             <button
               type="submit"
-              className="w-full flex items-center justify-center 
+              disabled={loading}
+              className={`w-full flex items-center justify-center 
                 bg-blue-500 text-white py-3 rounded-lg 
                 hover:bg-blue-600 transition-all duration-300 
-                group"
+                group ${loading ? 'opacity-70 cursor-not-allowed' : ''}`}
             >
-              <FaPaperPlane className="mr-2 group-hover:translate-x-1 transition-transform" />
-              Send Message
-            </button>
+              {loading ? (
+                <>
+                  <svg className="animate-spin h-5 w-5 mr-3" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                  </svg>
+                  Sending...
+                </>
+              ) : (
+                <>
+                  <FaPaperPlane className="mr-2 group-hover:translate-x-1 transition-transform" />
+                  Send Message
+                </>
+              )}
+            </button>            
           </form>
         </motion.div>
       </div>

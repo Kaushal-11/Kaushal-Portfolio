@@ -21,26 +21,36 @@ const Footer = () => {
     setContactForm({ ...contactForm, [e.target.name]: e.target.value });
   };
 
+  const [loading, setLoading] = useState(false);  
   const handleContactSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     setStatus("Sending...");
 
     try {
-      await axios.post("http://localhost:5000/contact", {
-        name: contactForm.name,
-        email: contactForm.email,
-        message: contactForm.message,
-      }, {
-        headers: { "Content-Type": "application/json" }
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(contactForm),
       });
-
-      setStatus("✅ Message sent!");
-      setContactForm({ email: "", message: "" });
-    } catch (err) {
-      console.error(err);
-      setStatus("❌ Failed to send.");
+      
+      const data = await response.json();
+      
+      if (response.ok && data.success) {
+        setStatus("✅ " + data.message);
+        setContactForm({ name: "", email: "", message: "" });
+      } else {
+        setStatus("❌ " + (data.message || "Failed to send"));
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      setStatus("❌ Server error. Please try again.");
+    } finally {
+      setLoading(false);
     }
-  };
+  };  
 
   // Check scroll position for back-to-top button
   useEffect(() => {
@@ -276,17 +286,31 @@ const Footer = () => {
               </motion.div>
               <motion.button
                 type="submit"
-                className="bg-gradient-to-r from-primary-600 to-secondary-600 hover:from-primary-700 hover:to-secondary-700 text-white font-medium px-6 py-2 rounded-lg transition-all shadow-md"
-                whileHover={{
+                disabled={loading}
+                className={`bg-gradient-to-r from-primary-600 to-secondary-600 
+                  hover:from-primary-700 hover:to-secondary-700 text-white 
+                  font-medium px-6 py-2 rounded-lg transition-all shadow-md
+                  ${loading ? 'opacity-70 cursor-not-allowed' : ''}`}
+                whileHover={!loading ? {
                   scale: 1.02,
                   y: -2,
-                  boxShadow:
-                    "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
-                }}
-                whileTap={{ scale: 0.98, y: 0 }}
+                  boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)"
+                } : {}}
+                whileTap={!loading ? { scale: 0.98, y: 0 } : {}}
               >
-                Send Message
+                {loading ? (
+                  <>
+                    <svg className="animate-spin h-5 w-5 mr-2 inline" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                    </svg>
+                    Sending...
+                  </>
+                ) : (
+                  "Send Message"
+                )}
               </motion.button>
+              
               {status && (
                 <p className="text-sm mt-2 text-gray-600 dark:text-gray-400">
                   {status}
