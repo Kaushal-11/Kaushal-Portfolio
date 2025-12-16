@@ -14,7 +14,7 @@ import axios from "axios";
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   const [showScrollTop, setShowScrollTop] = useState(false);
-  const [contactForm, setContactForm] = useState({ email: "", message: "" });
+  const [contactForm, setContactForm] = useState({ name: "", email: "", message: "" });
   const [status, setStatus] = useState("");
 
   const handleContactChange = (e) => {
@@ -27,7 +27,7 @@ const Footer = () => {
 
     try {
       await axios.post("http://localhost:5000/contact", {
-        name: "Kaushal Portfolio Visitor",
+        name: contactForm.name,
         email: contactForm.email,
         message: contactForm.message,
       }, {
@@ -240,7 +240,18 @@ const Footer = () => {
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-            >
+            > 
+              <motion.div whileHover={{ y: -2 }}>
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="Your Name"
+                  value={contactForm.name}
+                  onChange={handleContactChange}
+                  className="form-input w-full rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-dark-100 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary-500"
+                  required
+                />
+              </motion.div>
               <motion.div whileHover={{ y: -2 }}>
                 <input
                   type="email"
