@@ -136,17 +136,6 @@ later from the same project settings.
 └── vite.config.js
 ```
 
-## Editing content
-
-Everything text-based lives in `src/data/portfolioData.js` (profile, education,
-languages, experience, skills, publications, certifications, hackathons, leadership)
-and `src/data/projects.js` (all 19 project cards). Edit those files and every section
-updates automatically — no need to touch component/layout code.
-
-## One note on the hackathon data
-
-For "Odoo x Amalthea," "Bengaluru Mobility Challenge," and the "ISRO Robotics Challenge,"
-the project/description text you pasted looked like leftover placeholder copy (all three
 described the same "skin condition diagnostic tool," which didn't match their tech tags
 or event names). I wrote short, neutral descriptions from the event name and tech tags
 instead of reusing that mismatched text — worth double-checking those three blurbs in
