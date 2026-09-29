@@ -77,16 +77,16 @@ export const experience = [
 export const education = [
   {
     degree: "M.Sc in Artificial Intelligence and Robotics",
-    school: 'University of Technology Nuremberg(UTN)',
+    school: 'University of Technology Nuremberg (UTN)',
     period: '2026 — Onward',
-    detail: 'Targeting a research-oriented Master\'s program in Germany to go deeper into AI while learning German (currently B1).',
-    status: 'goal',
+    detail: 'Building a strong foundation in machine learning, reinforcement learning, and autonomous systems control through intensive, research-driven postgraduate coursework.',
+    status: ' ',
   },
   {
     degree: 'B.Tech in Computer Engineering',
-    school: 'Charotar University of Science and Technology(CHARUSAT)',
+    school: 'Charotar University of Science and Technology',
     period: '2022 — 2026',
-    detail: 'CGPA 9.81 · Coursework in DS, DBMS, OS, Algorithms, ML, Deep Learning, Compiler Construction & Cloud Computing.',
+    detail: 'CGPA 9.81 · Coursework in DS, DBMS, OS, Algorithms, ML, DL, Compiler Construction & Cloud Computing.',
     status: 'done',
   },
   {
