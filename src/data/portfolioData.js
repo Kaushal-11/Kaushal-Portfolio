@@ -20,7 +20,7 @@ export const languages = [
   { name: 'Gujarati', level: 'Mother tongue', fill: 100 },
   { name: 'Hindi', level: 'Fluent', fill: 95 },
   { name: 'English', level: 'Fluent', fill: 90 },
-  { name: 'German', level: 'Learning · B1', fill: 50 },
+  { name: 'German', level: 'Learning · A2', fill: 50 },
 ];
 
 export const experience = [
@@ -76,15 +76,15 @@ export const experience = [
 
 export const education = [
   {
-    degree: "M.Sc in Artificial Intelligence",
-    school: 'Trier University, Germany',
+    degree: "M.Sc in Artificial Intelligence and Robotics",
+    school: 'University of Technology (UTN), Nuremberg',
     period: '2026 — Onward',
     detail: 'Targeting a research-oriented Master\'s program in Germany to go deeper into AI while learning German (currently B1).',
     status: 'goal',
   },
   {
-    degree: 'B.Tech, Computer Engineering',
-    school: 'Chandubhai S. Patel Institute of Technology, CHARUSAT',
+    degree: 'B.Tech in Computer Engineering',
+    school: 'Charotar University of Science and Technology (CHARUSAT), Anand',
     period: '2022 — 2026',
     detail: 'CGPA 9.81 · Coursework in DS, DBMS, OS, Algorithms, ML, Deep Learning, Compiler Construction & Cloud Computing.',
     status: 'done',
